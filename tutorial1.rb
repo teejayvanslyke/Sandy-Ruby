@@ -1,3 +1,6 @@
+require './bikes'
+require './obstacles'
+
 puts "Welcome to PDXYCLE!"
 puts "Enter your name:"
 name = gets
@@ -12,20 +15,14 @@ puts "[3] Double Suspension Mountain Bike"
 model = gets.to_i
 
 
-class Bike 
-end
-
-class Cruiser < Bike
-end
-
-class Commuter < Bike
-end
-
-class CarbonRoadRacer < Bike
-end
-
-class DoubleSuspensionMountainBike < Bike
-end
+obstacles = [
+  MtTabor,
+  EastbankEsplanade,
+  BurnsideBridge,
+  I205Bridge,
+  RockyButte,
+  ForestPark
+]
 
 chosen_model = [
   Cruiser,
@@ -36,10 +33,11 @@ chosen_model = [
 
 bike = chosen_model.new
 
-puts "You're about to climb Mt Tabor..."
-distance_up_mount_tabor = 2.0 #miles
-time_to_travel = bike.speed 
-sleep bike.time_to_travel(distance_up_mount_tabor)
+loop do
+  obstacle = obstacles[(rand * obstacles.size).floor].new
+  puts obstacle.intro_message
+  sleep 1
+  puts obstacle.ride(bike)
+end
 
-puts "... You made it in #{bike.time_to_travel(distance_up_mount_tabor)} seconds!"
 
